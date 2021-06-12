@@ -10,7 +10,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 stages:
-- stage: DevDeploy
+- stage: Build
   displayName: Build Job
   jobs:
   - job: FirstJob
