@@ -23,30 +23,38 @@ stages:
     steps:
     - bash: echo second Job
 
-- stage: DevDeploy
-  variables:
-    environment: Dev
-  displayName: DevDeploy Job
-  jobs:
-  - job: DevDeployJob
-    displayName: DevDeploy Job1
-    steps:
-      - bash: echo $(environment) DevDeploy Job
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: '$(System.DefaultWorkingDirectory)'
+        Contents: |
+          **/*.yaml
+          **/*.tf
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
-- stage: QADeploy
-  variables:
-    environment: QA
-  displayName: QADeploy
-  jobs:
-  - job: Job1
-    displayName: QADeploy Job1
-    steps:
-      - bash: echo $(environment) QADeploy Job
+# - stage: DevDeploy
+#   variables:
+#     environment: Dev
+#   displayName: DevDeploy Job
+#   jobs:
+#   - job: DevDeployJob
+#     displayName: DevDeploy Job1
+#     steps:
+#       - bash: echo $(environment) DevDeploy Job
 
-- stage: ProdDeploy
-  displayName: ProdDeploy
-  jobs:
-  - job: ProdDeployJob
-    displayName: ProdDeploy Job
-    steps:
-    - bash: echo ProdDeploy Job
+# - stage: QADeploy
+#   variables:
+#     environment: QA
+#   displayName: QADeploy
+#   jobs:
+#   - job: Job1
+#     displayName: QADeploy Job1
+#     steps:
+#       - bash: echo $(environment) QADeploy Job
+
+# - stage: ProdDeploy
+#   displayName: ProdDeploy
+#   jobs:
+#   - job: ProdDeployJob
+#     displayName: ProdDeploy Job
+#     steps:
+#     - bash: echo ProdDeploy Job
