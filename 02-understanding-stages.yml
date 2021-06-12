@@ -17,26 +17,31 @@ stages:
     displayName: My First Job
     steps:
     - bash: echo Build FirstJob
+    - bash: echo $(PipelineLevelVariable)
   - job: secondJob
     displayName: My Second Job
     steps:
     - bash: echo second Job
 
 - stage: DevDeploy
+  variables:
+    environment: Dev
   displayName: DevDeploy Job
   jobs:
   - job: DevDeployJob
     displayName: DevDeploy Job1
     steps:
-      - bash: echo DevDeploy Job
+      - bash: echo $(environment) DevDeploy Job
 
 - stage: QADeploy
+  variables:
+    environment: QA
   displayName: QADeploy
   jobs:
   - job: Job1
     displayName: QADeploy Job1
     steps:
-      - bash: echo QADeploy Job
+      - bash: echo $(environment) QADeploy Job
 
 - stage: ProdDeploy
   displayName: ProdDeploy
